@@ -137,8 +137,7 @@ Thought: {agent_scratchpad}
                 verbose=True,
                 memory=self.memory,
                 handle_parsing_errors=True,
-                max_iterations=5,
-                early_stopping_method="generate"
+                max_iterations=5
             )
             
             print("✅ LangChain SQL agent initialized successfully with enhanced configuration")
