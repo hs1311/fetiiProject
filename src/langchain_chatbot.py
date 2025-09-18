@@ -137,7 +137,8 @@ Thought: {agent_scratchpad}
                 verbose=True,
                 memory=self.memory,
                 handle_parsing_errors=True,
-                max_iterations=5
+                max_iterations=10,
+                max_execution_time=60
             )
             
             print("✅ LangChain SQL agent initialized successfully with enhanced configuration")
@@ -191,14 +192,23 @@ Thought: {agent_scratchpad}
                 "response": formatted_response,
                 "raw_response": response_text,
                 "query_type": "langchain_nl_sql",
-                "model": "gpt-3.5-turbo",
+                "model": "gpt-4",
                 "timestamp": self._get_timestamp(),
                 "response_time": response_time
             }
             
         except Exception as e:
             response_time = time.time() - start_time
-            error_msg = f"Error processing query: {str(e)}"
+            error_msg = str(e)
+            
+            # Handle specific error types
+            if "iteration limit" in error_msg.lower() or "time limit" in error_msg.lower():
+                error_msg = "Query is too complex. Please try breaking it down into simpler questions or ask for specific data points."
+            elif "sql" in error_msg.lower():
+                error_msg = "Unable to generate SQL query. Please try rephrasing your question."
+            else:
+                error_msg = f"Error processing query: {error_msg}"
+            
             print(f"❌ {error_msg}")
             
             # Log failed query
