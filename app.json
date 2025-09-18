@@ -1,0 +1,24 @@
+{
+  "name": "FetiiPro LangChain SQL Chatbot",
+  "description": "GPT-4 powered natural language to SQL chatbot for ride-sharing data analysis",
+  "repository": "https://github.com/yourusername/fetiipro",
+  "keywords": ["langchain", "openai", "gpt-4", "sql", "chatbot", "nl-sql"],
+  "success_url": "/",
+  "env": {
+    "OPENAI_API_KEY": {
+      "description": "Your OpenAI API key for GPT-4 access",
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ]
+}
